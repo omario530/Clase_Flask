@@ -9,17 +9,53 @@ def home():
 def acerca():
     return render_template('acerca_de.html')
 
-@app.route("/seleccion")
+@app.route("/num_pag")
 def selecc():  # https://codepen.io/matuzo/pen/KOdpmq
-    return """<h1>Folder upload</h1>
-
-    <label for="folder">Select folder</label>
-    <input type="file" id="folder" webkitdirectory multiple/>
-
-    <h2>Selected Files</h2>
-    <td>
-    <ul id="listing"></ul>
-    </td>"""
+    return """
+<body>
+    <div class="container">
+        <h1 class="text-center">Count Pages inside PDF Document</h1>
+    <div class="form-group container">
+        <input type="file" accept=".pdf" required id="files" class="form-control">
+    </div>
+    <br><br>
+    <h1 class="text-primary container" id="result"></h1>
+    </div>
+</body>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.12.313/pdf.min.js"></script>
+        <script>
+        
+        let inputElement = document.getElementById('files')
+        
+           inputElement.onchange = function(event) {
+        
+            var file = event.target.files[0];
+        
+            //Step 2: Read the file using file reader
+            var fileReader = new FileReader();  
+        
+            fileReader.onload = function() {
+        
+                //Step 4:turn array buffer into typed array
+                var typedarray = new Uint8Array(this.result);
+        
+                //Step 5:pdfjs should be able to read this
+                const loadingTask = pdfjsLib.getDocument(typedarray);
+                loadingTask.promise.then(pdf => {
+        
+                    document.getElementById('result').innerHTML = "The number of Pages inside " + file.name + " is " + pdf.numPages
+                    // The document is loaded here...
+                });
+                            
+        
+            };
+            //Step 3:Read the file as ArrayBuffer
+            fileReader.readAsArrayBuffer(file);
+         
+         }
+        </script>
+        <ul id="result"></ul>
+"""
 
 
 @app.route("/seleccion_1")
