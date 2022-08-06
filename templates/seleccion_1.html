@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1><code>&lt;input webkitdirectory&gt;</code> demo</h1>
+
+    <p>The <code>webkitdirectory</code> attribute allows the user to pick a directory via a file input. All files (including nested files) inside that directory are added to the input’s <code>files</code> list. This attribute is supported in Chrome, Edge, and Firefox.</p>
+
+    <p>Pick a directory, and all files in that directory will be listed below, represented by their relative path.</p>
+
+    <input type="file" id="folder" name="fileList" webkitdirectory multiple>
+
+    <script>
+        document.getElementById("folder").addEventListener("change", function(event) {
+          var output = document.querySelector("ul");
+          var files = event.target.files;
+
+          for (var i=0; i<files.length; i++) {
+            var item = document.createElement("li");
+            item.innerHTML = files[i].webkitRelativePath;
+            output.appendChild(item);
+          };
+        }, false);
+    </script>
+
+    <ul id="listing"></ul>
+
+</body>
+</html>
