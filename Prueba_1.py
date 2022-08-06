@@ -1,17 +1,13 @@
-from flask import Flask
+from flask import Flask, render_template
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    return """<H1>
-    página de inicio
-    </H1>"""
+    return render_template('home.html')
 
 @app.route("/acerca")
 def acerca():
-    return """<H2>
-    acerca de 
-    </H2>"""
+    return render_template('acerca_de.html')
 
 @app.route("/seleccion")
 def selecc():  # https://codepen.io/matuzo/pen/KOdpmq
@@ -28,17 +24,8 @@ def selecc():  # https://codepen.io/matuzo/pen/KOdpmq
 
 @app.route("/seleccion_1")
 def selecc_1():  #https://developer.mozilla.org/es/docs/Web/API/File/webkitRelativePath
-    return """
-    <h1><code>&lt;input webkitdirectory&gt;</code> demo</h1>
-
-    <p>The <code>webkitdirectory</code> attribute allows the user to pick a directory via a file input. All files (including nested files) inside that directory are added to the input’s <code>files</code> list. This attribute is supported in Chrome, Edge, and Firefox.</p>
-    
-    <p>Pick a directory, and all files in that directory will be listed below, represented by their relative path.</p>
-    
-    <input type="file" id="picker" name="fileList" webkitdirectory multiple>
-    
-    <ul id="listing"></ul>
-"""
+    return render_template('seleccion_1.html')
+    return r
 
 if __name__ == '__main__':
     app.run(debug=True)
