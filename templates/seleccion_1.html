@@ -11,16 +11,16 @@
 
     <p>Pick a directory, and all files in that directory will be listed below, represented by their relative path.</p>
 
-    <input type="file" id="folder" name="fileList" webkitdirectory multiple>
+    <input type="file" accept=".pdf" required id="file" name="fileList" webkitdirectory multiple>
 
     <script>
-        document.getElementById("folder").addEventListener("change", function(event) {
+        document.getElementById("file").addEventListener("change", function(event) {
           var output = document.querySelector("ul");
           var files = event.target.files;
 
           for (var i=0; i<files.length; i++) {
             var item = document.createElement("li");
-            item.innerHTML = files[i].webkitRelativePath;
+                item.innerHTML = files[i].webkitRelativePath;
             output.appendChild(item);
           };
         }, false);
